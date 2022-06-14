@@ -1,0 +1,46 @@
+.review {
+    margin:0.5em;
+    border:medium solid yellow;
+    /* max-height:50vh; */
+}
+
+.title {
+    font-size: medium;
+    font-weight: 500;
+}
+
+.image {
+    margin:0.25em;
+    display:inline-block;
+    min-width: 100px;
+    max-width: 15%;
+    grid-area: 'image';
+}
+
+.owner {
+    grid-area: 'owner';
+}
+
+.date {
+    grid-area: 'date';
+}
+
+.reviewDetails {
+    display:grid;
+    grid-template-columns: auto auto;
+    grid-template-areas: 'image owner image date';
+}
+
+.gameDetails {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.gameDetails span {
+    display: block;
+}
+
+.body {
+    margin:0.5em 1em;
+    text-align: left;
+}

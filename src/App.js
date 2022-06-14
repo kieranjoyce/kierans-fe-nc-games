@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import AllReviews from "./components/AllReviews";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
+import ReviewsList from "./components/ReviewsList";
 import { getCategories, getUsers } from "./utils/api";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Header />
         <NavBar categories={categories}/>
         <Routes>
-            <Route path="/" element={<AllReviews />} />
+            <Route path="/" element={<ReviewsList />} />
         </Routes>
         </div>
         );
