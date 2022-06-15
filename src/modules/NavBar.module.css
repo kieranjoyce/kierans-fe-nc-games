@@ -1,3 +1,7 @@
+.nav {
+    grid-area: nav;
+}
+
 .nav__list {
     list-style: none;
     display: flex;
@@ -10,4 +14,22 @@
     padding: 0.25em 0.5em;
     margin: 0.25em 0.25em;
     background-color: rgb(249, 191, 114);
+    text-transform: capitalize;
+}
+
+.nav__activeLink {
+    font-weight: 500;
+}
+
+@media only screen and (min-width:600px) {
+    .nav__list {
+        display:block;
+        padding:0.5em;
+        border: medium solid orange;
+        border-radius: 3px;
+    }
+    
+    .nav__listItem {
+        margin: 0.5em;
+    }
 }
