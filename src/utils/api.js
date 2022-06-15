@@ -11,9 +11,8 @@ export function getCategories() {
     })
 }
 
-export function getReviews() {
-    let path = '/reviews';
-    return ncGamesApi.get(path)
+export function getReviews(category) {
+    return ncGamesApi.get('/reviews', {params: {category}})
     .then(({ data: {reviews}}) => {
         return reviews;
     })
