@@ -1,8 +1,8 @@
 .review {
-    margin:0.5em;
+    margin:0.5em auto;
     border:medium solid yellow;
     border-radius: 10px;
-    /* max-height:50vh; */
+    max-width: 400px;
 }
 
 .title {
@@ -60,4 +60,11 @@
 
 .engagement p {
     display:inline
+}
+
+@media only screen and (min-width:600px) {
+    .review {
+        margin:0.5em;
+        flex:1 1 300px;
+    }
 }
