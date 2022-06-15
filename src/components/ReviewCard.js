@@ -7,11 +7,13 @@ export default function ReviewCard({ review }) {
     return (
         <li key={review_id} className={styles.review}>
             <h3 className={styles.title}>{title}</h3>
-            <div className={styles.reviewDetails}>
+            <div className={styles.detailsWrapper}>
                 <img src={review_img_url} alt={title} 
                 className={styles.image} />
-                <p className={styles.owner}>{owner}</p>
-                <p className={styles.date}>{dayjs(created_at).format('D MMM YY')}</p>
+                <div className={styles.reviewDetails}>
+                    <p className={styles.owner}>{owner}</p>
+                    <p className={styles.date}>{dayjs(created_at).format('D MMM YY')}</p>
+                </div>
             </div>
             <div className={styles.gameDetails}>
                 <p>category:<span>{category}</span></p>
