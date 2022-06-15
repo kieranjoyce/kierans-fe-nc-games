@@ -3,7 +3,7 @@
   margin:0;
 }
 
-.App {
+.page-wrap {
   text-align: center;
   display:grid;
   grid-template-columns: 100%;
@@ -15,7 +15,7 @@
 }
 
 @media only screen and (min-width:600px) {
-  .App {
+  .page-wrap {
     grid-template-columns: 25% 75%;
     grid-template-rows: auto auto;
     grid-template-areas:

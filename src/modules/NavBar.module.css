@@ -1,35 +1,30 @@
 .nav {
-    grid-area: nav;
-}
-
-.nav__list {
-    list-style: none;
-    display: flex;
-    flex-flow:row wrap;
-    justify-content: center;
-}
-
-.nav__listItem {
-    border: thin solid red;
-    padding: 0.25em 0.5em;
-    margin: 0.25em 0.25em;
-    background-color: rgb(249, 191, 114);
-    text-transform: capitalize;
-}
-
-.nav__activeLink {
-    font-weight: 500;
+    display:none;
 }
 
 @media only screen and (min-width:600px) {
+    .nav {
+        display:block;
+        grid-area: nav;
+    }
+    
     .nav__list {
+        list-style: none;
         display:block;
         padding:0.5em;
         border: medium solid orange;
         border-radius: 3px;
     }
-    
+
     .nav__listItem {
+        border: thin solid red;
+        padding: 0.25em 0.5em;
         margin: 0.5em;
+        background-color: rgb(249, 191, 114);
+        text-transform: capitalize;
+    }
+    
+    .nav__activeLink {
+        font-weight: 500;
     }
 }
