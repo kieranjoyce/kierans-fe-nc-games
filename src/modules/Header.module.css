@@ -1,3 +1,4 @@
 .header {
-    border-bottom: thick solid yellow
+    border-bottom: thick solid yellow;
+    grid-area: header;
 }

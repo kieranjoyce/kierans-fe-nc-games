@@ -1,11 +1,12 @@
 import dayjs from "dayjs";
 import styles from '../modules/ReviewCard.module.css'
+import { dashesToSpaces } from "../utils/utils";
 
 export default function ReviewCard({ review }) {
-    const {review_id, title, designer, owner, review_img_url, review_body, category, created_at, votes, comment_count} = review;
+    const {title, designer, owner, review_img_url, review_body, category, created_at, votes, comment_count} = review;
     
     return (
-        <li key={review_id} className={styles.review}>
+        <li className={styles.review}>
             <h3 className={styles.title}>{title}</h3>
             <div className={styles.detailsWrapper}>
                 <img src={review_img_url} alt={title} 
@@ -16,7 +17,7 @@ export default function ReviewCard({ review }) {
                 </div>
             </div>
             <div className={styles.gameDetails}>
-                <p className={styles.category}>{category.split('-').join(' ')}</p>
+                <p className={styles.category}>{dashesToSpaces(category)}</p>
                 <p>designed by<span>{designer}</span></p>
             </div>
             <p className={styles.body}>{review_body}</p>

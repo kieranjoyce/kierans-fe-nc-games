@@ -1,13 +1,20 @@
+import { NavLink } from 'react-router-dom'
 import styles from '../modules/NavBar.module.css'
+import { dashesToSpaces } from '../utils/utils'
 
 export default function NavBar({ categories }) {
+
     return (
-        <nav>
+        <nav className={styles.nav}>
             <ul className={styles.nav__list}>
-                {categories.map((category) => {
-                    return <li key={category.slug}
+                {categories.map(({slug}) => {
+                    return <li key={slug}
                         className={styles.nav__listItem}>
-                        {category.slug}
+                        <NavLink to={`/reviews/${slug}`}
+                            className={(({ isActive }) => isActive ? styles.nav__activeLink : undefined)} >
+                            {/* // {styles["nav__link--active"]}> */}
+                            {dashesToSpaces(slug)}
+                        </NavLink>
                         </li>
                 })}
             </ul>

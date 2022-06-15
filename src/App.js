@@ -4,12 +4,10 @@ import "./App.css";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import ReviewsList from "./components/ReviewsList";
-import { getCategories, getUsers } from "./utils/api";
+import { getCategories} from "./utils/api";
 
 function App() {
     const [categories, setCategories] = useState([]);
-    
-    // const [users, setUsers] = useState([]);
     
     useEffect(() => {
         getCategories()
@@ -17,14 +15,6 @@ function App() {
             setCategories(categories);
         })
     }, [])
-    
-    // useEffect(() => {
-    //     getUsers()
-    //     .then(users => {
-    //         console.log(users);
-    //         setUsers(users);
-    //     })
-    // }, [])
 
     return (
         <div className="App">
@@ -32,6 +22,7 @@ function App() {
         <NavBar categories={categories}/>
         <Routes>
             <Route path="/" element={<ReviewsList />} />
+            <Route path="/reviews/:category" element={<ReviewsList categories={categories}/>} />
         </Routes>
         </div>
         );
