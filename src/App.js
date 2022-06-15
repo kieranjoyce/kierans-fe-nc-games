@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header";
+import NavBar from "./components/NavBar";
+import ReviewsList from "./components/ReviewsList";
+import { getCategories, getUsers } from "./utils/api";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [categories, setCategories] = useState([]);
+    
+    // const [users, setUsers] = useState([]);
+    
+    useEffect(() => {
+        getCategories()
+        .then(categories => {
+            setCategories(categories);
+        })
+    }, [])
+    
+    // useEffect(() => {
+    //     getUsers()
+    //     .then(users => {
+    //         console.log(users);
+    //         setUsers(users);
+    //     })
+    // }, [])
 
+    return (
+        <div className="App">
+        <Header />
+        <NavBar categories={categories}/>
+        <Routes>
+            <Route path="/" element={<ReviewsList />} />
+        </Routes>
+        </div>
+        );
+    }
+    
 export default App;

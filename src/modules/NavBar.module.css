@@ -1,0 +1,13 @@
+.nav__list {
+    list-style: none;
+    display: flex;
+    flex-flow:row wrap;
+    justify-content: center;
+}
+
+.nav__listItem {
+    border: thin solid red;
+    padding: 0.25em 0.5em;
+    margin: 0.25em 0.25em;
+    background-color: rgb(249, 191, 114);
+}
