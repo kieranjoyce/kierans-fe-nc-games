@@ -16,8 +16,8 @@ export default function ReviewCard({ review }) {
                 </div>
             </div>
             <div className={styles.gameDetails}>
-                <p>category:<span>{category}</span></p>
-                <p>designer:<span>{designer}</span></p>
+                <p className={styles.category}>{category.split('-').join(' ')}</p>
+                <p>designed by<span>{designer}</span></p>
             </div>
             <p className={styles.body}>{review_body}</p>
             <div className={styles.engagement}>
