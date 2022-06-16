@@ -22,7 +22,8 @@ function App() {
         <NavBar categories={categories}/>
         <Routes>
             <Route path="/" element={<ReviewsList />} />
-            <Route path="/reviews/:category" element={<ReviewsList categories={categories}/>} />
+            <Route path="/:category" element={<ReviewsList categories={categories}/>} />
+            {/* <Route path="/review/:review_id" element={<SingleReview />} /> */}
         </Routes>
         </div>
         );
