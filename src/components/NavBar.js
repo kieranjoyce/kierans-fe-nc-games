@@ -10,9 +10,8 @@ export default function NavBar({ categories }) {
                 {categories.map(({slug}) => {
                     return <li key={slug}
                         className={styles.nav__listItem}>
-                        <NavLink to={`/reviews/${slug}`}
+                        <NavLink to={`/${slug}`}
                             className={(({ isActive }) => isActive ? styles.nav__activeLink : undefined)} >
-                            {/* // {styles["nav__link--active"]}> */}
                             {dashesToSpaces(slug)}
                         </NavLink>
                         </li>
