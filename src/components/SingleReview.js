@@ -47,12 +47,14 @@ export default function SingleReview() {
                     </div>
                     <p className={styles.date}>{formatDate(created_at)}</p>
                 </div>
-                <div>
-                    <img src={review_img_url} alt={title} className={styles.image} />
-                    <p>designed by {designer}</p>
-                    <p>{category}</p>
+                <img src={review_img_url} alt={title} className={styles.image} />
+                <div className={styles.reviewContent} >
+                    <div className={styles.gameDetails} >
+                        <p>designed by {designer}</p>
+                        <p>{category}</p>
+                    </div>
+                    <p className={styles.body}>{review_body}</p>
                 </div>
-                <p className={styles.body}>{review_body}</p>
             </section>
             <section>
                 <p>{comment_count}</p> 
