@@ -75,6 +75,12 @@
 }
 
 @media only screen and (min-width:600px) {
+    .title {
+        font-size: larger;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
     .image {
         float:left;
         text-align: left;
