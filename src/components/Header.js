@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom'
 import styles from '../modules/Header.module.css'
 
 export default function Header() {
     return (
         <header className={styles.header}>
-            <h1>Yellow Pieces</h1>
+            <h1 className={styles.title} >
+                <Link to='/' className={styles.link} >
+                    Yellow Pieces
+                </Link>
+            </h1>
             <p>login</p>
         </header>
     )

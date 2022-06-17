@@ -2,3 +2,8 @@
     border-bottom: thick solid yellow;
     grid-area: header;
 }
+
+.title {
+    width:max-content;
+    margin: 0 auto;
+}

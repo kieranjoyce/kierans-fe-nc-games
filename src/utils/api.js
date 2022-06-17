@@ -18,6 +18,21 @@ export function getReviews(category) {
     })
 }
 
+export function getReview(review_id) {
+    return ncGamesApi.get(`/reviews/${review_id}`)
+    .then(({ data: {review}}) => {
+        return review;
+    })
+}
+
+export function getUser(targetUsername) {
+    return ncGamesApi.get('/users')
+    .then(({data : {users}}) => {
+        return users.find(({ username }) => username === targetUsername);
+    })
+    .catch(err => console.log(err))
+}
+
 export function getUsers() {
     return ncGamesApi.get('/users')
     .then(({ data: {users}}) => {
