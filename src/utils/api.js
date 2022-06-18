@@ -39,3 +39,7 @@ export function getUsers() {
         return users;
     })
 }
+
+export function patchVotes(review_id, inc_votes) {
+    return ncGamesApi.patch(`/reviews/${review_id}`, { inc_votes });
+}

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getReview, getUser } from "../utils/api";
 import { formatDate } from "../utils/utils";
 import styles from "../modules/SingleReview.module.css"
+import VoteBlock from "./VoteBlock";
 
 export default function SingleReview() {
     const [reviewData, setReviewData] = useState({review: {}, user: {}});
@@ -26,7 +27,6 @@ export default function SingleReview() {
             setIsLoading(false);
         })
     }, [review_id, owner])
-
     
     if(isLoading) return <p>loading...</p>
     
@@ -34,7 +34,7 @@ export default function SingleReview() {
         <main>
             <section className={styles.review}>
                 <div className={styles.reviewHeader} >
-                    <p className={styles.votes}>votes: {votes}</p>
+                    <VoteBlock className={styles.votes} votes={votes} review_id={review_id} />
                     <h2 className={styles.title} >{title}</h2>
                 </div>
                 <div className={styles.ownerDetails} >

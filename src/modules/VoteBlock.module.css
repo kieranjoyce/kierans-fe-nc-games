@@ -1,0 +1,16 @@
+.voteBlock {
+    padding-right:0.5em;
+    text-align:center;
+}
+
+.symbolsUnselected {
+    fill:black;
+}
+
+.upSymbolSelected {
+    fill:orange;
+}
+
+.downSymbolSelected {
+    fill:lightskyblue;
+}
