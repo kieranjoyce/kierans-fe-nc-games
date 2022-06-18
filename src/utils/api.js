@@ -43,3 +43,10 @@ export function getUsers() {
 export function patchVotes(review_id, inc_votes) {
     return ncGamesApi.patch(`/reviews/${review_id}`, { inc_votes });
 }
+
+export function getComments(review_id) {
+    return ncGamesApi.get(`/reviews/${review_id}/comments`)
+    .then(({ data: {comments}}) => {
+        return comments;
+    })
+}
