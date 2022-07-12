@@ -14,6 +14,8 @@ export default function SingleReview() {
     
     const [isLoading, setIsLoading] = useState(true);
     
+    const [isErr, setIsErr] = useState(false);
+    
     const { review_id } = useParams();
     
     useEffect(() => {
@@ -31,11 +33,13 @@ export default function SingleReview() {
     
     if(isLoading) return <p>loading...</p>
     
+    if(isErr) return <p>an error has occurred, please refresh the page</p>
+    
     return (
         <main>
             <section className={styles.review}>
                 <div className={styles.reviewHeader} >
-                    <VoteBlock className={styles.votes} votes={votes} review_id={review_id} />
+                    <VoteBlock className={styles.votes} votes={votes} review_id={review_id} setIsErr={setIsErr} />
                     <h2 className={styles.title} >{title}</h2>
                 </div>
                 <div className={styles.ownerDetails} >
