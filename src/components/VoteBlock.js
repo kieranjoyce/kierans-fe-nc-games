@@ -4,25 +4,32 @@ import {ReactComponent as UpSymbol} from "../assets/arrow_upward_FILL0_wght400_G
 import {ReactComponent as DownSymbol} from "../assets/arrow_downward_FILL0_wght400_GRAD0_opsz48.svg"
 import { patchVotes } from "../utils/api";
 
-export default function VoteBlock({ votes, review_id }) {
-    const [voteData, setVoteData] = useState({voteChange: 0, currVote:'', prevVote:''})
+export default function VoteBlock({ votes, review_id, setIsErr }) {
+    const [voteData, setVoteData] = useState({voteChange: 0, currVote:'', prevVote:''});
     
     useEffect(() => {
         if (!voteData.currVote) {
             return;
         }
         const isVoteSwapping = (voteData.voteChange === 1 && voteData.prevVote === 'down') || (voteData.voteChange === -1 && voteData.prevVote === 'up')
-
+        
+        let votesToPatch;
+        
         if (isVoteSwapping) {
-            patchVotes(review_id, 2 * voteData.voteChange);
+            votesToPatch = 2 * voteData.voteChange;
         } 
         else if (voteData.voteChange !== 0) {
-            patchVotes(review_id, voteData.voteChange);
+            votesToPatch = voteData.voteChange;
         } 
         else {
-            patchVotes(review_id, voteData.prevVote === 'up' ? -1 : 1)
+            votesToPatch = voteData.prevVote === 'up' ? -1 : 1;
         }
-    }, [voteData, review_id])
+        
+        patchVotes(review_id, votesToPatch)
+        .catch(() => {
+            setIsErr(true);
+        })
+    }, [voteData, review_id, setIsErr])
     
     const changeVote = (voteNum) => {
         const voteChange = voteData.voteChange !== voteNum ? voteNum : 0;
