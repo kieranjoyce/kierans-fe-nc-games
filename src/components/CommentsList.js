@@ -16,7 +16,6 @@ export default function CommentsList( {review_id, comment_count} ) {
             return getCommentAuthors(comments);
         })
         .then((authors) => {
-            console.log(authors);
             setAuthors(authors);
         })
     }, [review_id])
@@ -27,7 +26,7 @@ export default function CommentsList( {review_id, comment_count} ) {
         <h2>Comments {comment_count}</h2>
         <ul className={styles.list} >
         {comments.map((comment) => {
-            return <CommentCard key={comment.commend_id} comment={comment} author={authors.find(({ username }) => username === comment.author)} />
+            return <CommentCard key={comment.comment_id} comment={comment} author={authors.find(({ username }) => username === comment.author)} />
         })}
         </ul>
         </section>
