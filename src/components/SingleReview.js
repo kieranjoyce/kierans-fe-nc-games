@@ -4,6 +4,7 @@ import { getReview, getUser } from "../utils/api";
 import { formatDate } from "../utils/utils";
 import styles from "../modules/SingleReview.module.css"
 import VoteBlock from "./VoteBlock";
+import CommentsList from "./CommentsList";
 
 export default function SingleReview() {
     const [reviewData, setReviewData] = useState({review: {}, user: {}});
@@ -12,6 +13,8 @@ export default function SingleReview() {
     const { name, avatar_url } = reviewData.user;
     
     const [isLoading, setIsLoading] = useState(true);
+    
+    const [isErr, setIsErr] = useState(false);
     
     const { review_id } = useParams();
     
@@ -30,11 +33,13 @@ export default function SingleReview() {
     
     if(isLoading) return <p>loading...</p>
     
+    if(isErr) return <p>an error has occurred, please refresh the page</p>
+    
     return (
         <main>
             <section className={styles.review}>
                 <div className={styles.reviewHeader} >
-                    <VoteBlock className={styles.votes} votes={votes} review_id={review_id} />
+                    <VoteBlock className={styles.votes} votes={votes} review_id={review_id} setIsErr={setIsErr} />
                     <h2 className={styles.title} >{title}</h2>
                 </div>
                 <div className={styles.ownerDetails} >
@@ -56,9 +61,8 @@ export default function SingleReview() {
                     <p className={styles.body}>{review_body}</p>
                 </div>
             </section>
-            <section>
-                <p>{comment_count}</p> 
-                <p>comments here!</p>
+            <section> 
+                <CommentsList review_id={review_id} comment_count={comment_count} />
             </section>
         </main>
     )

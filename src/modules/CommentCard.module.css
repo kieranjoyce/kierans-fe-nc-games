@@ -1,0 +1,44 @@
+.comment {
+    width:45%;
+    border:thin solid greenyellow ;
+}
+
+.ownerDetails {
+    display:flex;
+    justify-content: flex-start;
+    padding:0.5em;
+}
+
+.avatarContainer {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    align-self:center;
+    height:2.5em;
+    width:2.5em;
+    border: thin solid magenta; 
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.avatar {
+    box-sizing:border-box;
+    max-height: 2.5em;
+    max-width:2.5em;
+    border-radius: 50%;
+    padding:0.25em;
+}
+
+.author {
+    padding-left:1em;
+    text-align:left;
+}
+
+.username {
+    padding-bottom:0.25em;
+}
+
+.date {
+    margin-left:auto;
+    padding:0;
+}

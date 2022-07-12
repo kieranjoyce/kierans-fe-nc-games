@@ -2,7 +2,7 @@ import ReviewCard from "./ReviewCard"
 import styles from "../modules/ReviewsList.module.css"
 import { getReviews } from "../utils/api";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { dashesToSpaces } from "../utils/utils";
 
 export default function ReviewsList({categories}) {
@@ -28,7 +28,7 @@ export default function ReviewsList({categories}) {
                 <h3 
                 className={styles.main__categoryDescription}>
                 <span>{dashesToSpaces(category)}</span>: {description}
-            </h3> <Link to='/'>Back to all reviews</Link> 
+            </h3>
             </div> : null}
             <ul className={styles.main__list}>
             {reviews.map(review => {
