@@ -15,7 +15,7 @@ export default function CommentCard({ comment : {author: username, body, votes, 
                 </div>
                 <p className={styles.date}>{formatDate(created_at)}</p>
             </div>
-            <p>votes: {votes}</p>
+            <p>{votes} votes</p>
             <p>{body}</p>
         </li>
 
