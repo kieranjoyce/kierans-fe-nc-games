@@ -37,7 +37,7 @@ export default function CommentsList({ review_id, comment_count }) {
                     );
                 })}
             </ul>
-            <PostComment />
+            <PostComment review_id={review_id} setComments={setComments} />
         </section>
     );
 }
