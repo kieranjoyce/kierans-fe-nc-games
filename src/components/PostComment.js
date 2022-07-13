@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../modules/CommentCard.module.css";
+import { postComment } from "../utils/api";
 
-function PostComment() {
+function PostComment({ review_id, setComments }) {
     const [commentBody, setCommentBody] = useState("");
     const [isErr, setIsErr] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const { username, avatar_url } = useContext(UserContext);
 
@@ -20,10 +22,18 @@ function PostComment() {
             return;
         }
 
-        // post comment to api
-        // disable post button until comment successfully posted
-        // display newly added comment (new request or manually add from frontend?), will need setComments in props
-        // set new comment body back to empty
+        setIsDisabled(true);
+        postComment(review_id, username, commentBody)
+            .then((newComment) => {
+                setComments((currComments) => {
+                    return [...currComments, newComment];
+                });
+                setIsDisabled(false);
+                setCommentBody("");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
@@ -50,7 +60,9 @@ function PostComment() {
                     onChange={onChange}
                 />
             </label>
-            <button type="submit">Post</button>
+            <button type="submit" disabled={isDisabled}>
+                Post
+            </button>
             {isErr ? <p>❌Comment body must not be empty</p> : null}
         </form>
     );
