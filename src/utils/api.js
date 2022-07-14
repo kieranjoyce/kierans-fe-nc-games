@@ -63,3 +63,7 @@ export function postComment(review_id, username, body) {
             return comment;
         });
 }
+
+export function deleteComment(comment_id) {
+    return ncGamesApi.delete(`/comments/${comment_id}`);
+}

@@ -33,6 +33,7 @@ export default function CommentsList({ review_id, comment_count }) {
                             author={authors.find(
                                 ({ username }) => username === comment.author
                             )}
+                            setComments={setComments}
                         />
                     );
                 })}
