@@ -1,14 +1,22 @@
 .main {
-    margin:0.5em;
-    grid-area:content;
+    margin: 0.5em;
+    grid-area: content;
+}
+
+.main__headerBox {
+    display: flex;
+}
+
+.main__header {
+    flex-grow: 1;
+}
+
+.main__dropdown {
+    align-self: flex-end;
 }
 
 .main__list {
     list-style: none;
-}
-
-.main__categoryDescription {
-    
 }
 
 .main__categoryDescription span {
@@ -17,9 +25,8 @@
 
 @media only screen and (min-width: 600px) {
     .main__list {
-        display:flex;
-        flex-flow:row wrap;
+        display: flex;
+        flex-flow: row wrap;
         justify-content: center;
     }
-    
 }

@@ -10,9 +10,9 @@ export function getCategories() {
     });
 }
 
-export function getReviews(category) {
+export function getReviews(category, sort_by, order) {
     return ncGamesApi
-        .get("/reviews", { params: { category } })
+        .get("/reviews", { params: { category, sort_by, order } })
         .then(({ data: { reviews } }) => {
             return reviews;
         });
