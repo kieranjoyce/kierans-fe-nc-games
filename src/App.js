@@ -32,13 +32,14 @@ function App() {
                 <Routes>
                     <Route path="/" element={<ReviewsList />} />
                     <Route
-                        path="/:category"
+                        path="/categories/:category"
                         element={<ReviewsList categories={categories} />}
                     />
                     <Route
-                        path="/review/:review_id"
+                        path="/reviews/:review_id"
                         element={<SingleReview />}
                     />
+                    <Route path="/*" element={<h2>404: page not found</h2>} />
                 </Routes>
             </div>
         </UserContext.Provider>
