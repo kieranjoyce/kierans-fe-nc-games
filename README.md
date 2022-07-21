@@ -4,7 +4,7 @@ A boardgames review site created for the front-end project stage of the Northcod
 ### https://yellowpieces.netlify.app/
 
 ## Description
-This project is a React app where users can view and interact with reviews for a variety of boardgames. The app includes client-side routing utilising React Router v6, and populates pages with data retrieved from a RESTful API linked to a PostgreSQL database (https://github.com/kieranjoyce/be-nc-games)
+This project is a React app where users can view and interact with reviews for a variety of boardgames. The app includes client-side routing utilising React Router v6, and saturates pages with data retrieved from a RESTful API linked to a PostgreSQL database (https://github.com/kieranjoyce/be-nc-games)
 ### Features
 - can view full list of reviews, which can be filtered by category or sorted by various properties
 - can view an individual review in full, along with associated comments
