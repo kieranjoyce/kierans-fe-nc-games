@@ -4,15 +4,37 @@ const ncGamesApi = axios.create({
     baseURL: "https://kierans-be-nc-games.herokuapp.com/api/",
 });
 
-export function getCategories() {
-    return ncGamesApi.get("/categories").then(({ data: { categories } }) => {
-        return categories;
-    });
+export interface Category {
+    slug: string;
+    description: string;
 }
 
-export function getReviews(category, sort_by, order) {
+export interface Review {
+    review_id: number;
+    title: string;
+    designer: string;
+    owner: string;
+    review_img_url: string;
+    review_body: string;
+    category: string;
+    created_at: string;
+    votes: number;
+    comment_count: number;
+}
+
+export function getCategories() {
     return ncGamesApi
-        .get("/reviews", { params: { category, sort_by, order } })
+        .get<{ categories: Category[] }>("/categories")
+        .then(({ data: { categories } }) => {
+            return categories;
+        });
+}
+
+export function getReviews(category: string, sort_by: string, order: string) {
+    return ncGamesApi
+        .get<{ reviews: Review[] }>("/reviews", {
+            params: { category, sort_by, order },
+        })
         .then(({ data: { reviews } }) => {
             return reviews;
         });
