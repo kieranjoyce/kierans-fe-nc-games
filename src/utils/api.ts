@@ -22,6 +22,21 @@ export interface Review {
     comment_count: number;
 }
 
+export interface User {
+    username: string;
+    name: string;
+    avatar_url: string;
+}
+
+export interface Comment {
+    comment_id: number;
+    body: string;
+    review_id: number;
+    author: string;
+    votes: number;
+    created_at: string;
+}
+
 export function getCategories() {
     return ncGamesApi
         .get<{ categories: Category[] }>("/categories")
@@ -40,17 +55,17 @@ export function getReviews(category: string, sort_by: string, order: string) {
         });
 }
 
-export function getReview(review_id) {
+export function getReview(review_id: number) {
     return ncGamesApi
-        .get(`/reviews/${review_id}`)
+        .get<{ review: Review }>(`/reviews/${review_id}`)
         .then(({ data: { review } }) => {
             return review;
         });
 }
 
-export function getUser(targetUsername) {
+export function getUser(targetUsername: string) {
     return ncGamesApi
-        .get("/users")
+        .get<{ users: User[] }>("/users")
         .then(({ data: { users } }) => {
             return users.find(({ username }) => username === targetUsername);
         })
@@ -58,26 +73,28 @@ export function getUser(targetUsername) {
 }
 
 export function getUsers() {
-    return ncGamesApi.get("/users").then(({ data: { users } }) => {
-        return users;
-    });
+    return ncGamesApi
+        .get<{ users: User[] }>("/users")
+        .then(({ data: { users } }) => {
+            return users;
+        });
 }
 
-export function patchVotes(review_id, inc_votes) {
+export function patchVotes(review_id: number, inc_votes: number) {
     return ncGamesApi.patch(`/reviews/${review_id}`, { inc_votes });
 }
 
-export function getComments(review_id) {
+export function getComments(review_id: number) {
     return ncGamesApi
-        .get(`/reviews/${review_id}/comments`)
+        .get<{ comments: Comment[] }>(`/reviews/${review_id}/comments`)
         .then(({ data: { comments } }) => {
             return comments;
         });
 }
 
-export function postComment(review_id, username, body) {
+export function postComment(review_id: number, username: string, body: string) {
     return ncGamesApi
-        .post(`/reviews/${review_id}/comments`, {
+        .post<{ comment: Comment }>(`/reviews/${review_id}/comments`, {
             username,
             body,
         })
@@ -86,6 +103,6 @@ export function postComment(review_id, username, body) {
         });
 }
 
-export function deleteComment(comment_id) {
+export function deleteComment(comment_id: number) {
     return ncGamesApi.delete(`/comments/${comment_id}`);
 }
