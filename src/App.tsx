@@ -11,15 +11,9 @@ import ReviewsList from "./components/ReviewsList";
 import SingleReview from "./components/SingleReview";
 // @ts-ignore
 import { UserContext } from "./contexts/UserContext";
-import { getCategories, Category } from "./utils/api";
+import { getCategories, Category, User } from "./utils/api";
 
 function App() {
-    interface User {
-        username: string;
-        name: string;
-        avatar_url: string;
-    }
-
     const [categories, setCategories] = useState<Category[]>([]);
 
     const user: User = {
