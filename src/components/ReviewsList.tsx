@@ -1,22 +1,30 @@
 import ReviewCard from "./ReviewCard";
 import styles from "../modules/ReviewsList.module.css";
 import { getReviews } from "../utils/api";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { dashesToSpaces } from "../utils/utils";
 import { ReactComponent as UpSymbol } from "../assets/arrow_upward_FILL0_wght400_GRAD0_opsz48.svg";
 import { ReactComponent as DownSymbol } from "../assets/arrow_downward_FILL0_wght400_GRAD0_opsz48.svg";
-import { useMemo } from "react";
+import type { Category, Review } from "../types";
 
-export default function ReviewsList({ categories }) {
-    const [reviews, setReviews] = useState([]);
+interface ReviewsListProps {
+    categories: Category[];
+}
+
+interface NewSearchParams {
+    [name: string]: string;
+}
+
+export default function ReviewsList({ categories }: ReviewsListProps) {
+    const [reviews, setReviews] = useState<Review[]>([]);
 
     const [isWrongPath, setIsWrongpath] = useState(false);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const sort_by = searchParams.get("sort_by");
-    const order = searchParams.get("order");
+    const sort_by = searchParams.get("sort_by") || undefined;
+    const order = searchParams.get("order") || undefined;
 
     const { category } = useParams();
 
@@ -37,8 +45,10 @@ export default function ReviewsList({ categories }) {
             });
     }, [categories, categoryObj, category, sort_by, order]);
 
-    const onChangeSort = (event) => {
-        const newSearchParams = { sort_by: event.target.value };
+    const onChangeSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newSearchParams: NewSearchParams = {
+            sort_by: event.target.value,
+        };
         if (order) {
             newSearchParams.order = order;
         }
@@ -47,7 +57,7 @@ export default function ReviewsList({ categories }) {
 
     const onClickOrder = () => {
         const newOrder = order === "asc" ? "desc" : "asc";
-        const newSearchParams = { order: newOrder };
+        const newSearchParams: NewSearchParams = { order: newOrder };
         if (sort_by) {
             newSearchParams.sort_by = sort_by;
         }
@@ -76,7 +86,7 @@ export default function ReviewsList({ categories }) {
                     {order === "asc" ? <UpSymbol /> : <DownSymbol />}
                 </button>
             </div>
-            {categoryObj ? (
+            {category && categoryObj ? (
                 <div>
                     <h3 className={styles.main__categoryDescription}>
                         <span>{dashesToSpaces(category)}</span>:{" "}
