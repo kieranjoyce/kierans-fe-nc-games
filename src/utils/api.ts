@@ -13,7 +13,11 @@ export function getCategories() {
         });
 }
 
-export function getReviews(category: string, sort_by: string, order: string) {
+export function getReviews(
+    category?: string,
+    sort_by?: string,
+    order?: string
+) {
     return ncGamesApi
         .get<{ reviews: Review[] }>("/reviews", {
             params: { category, sort_by, order },
