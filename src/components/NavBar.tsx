@@ -7,9 +7,7 @@ interface NavBarProps {
     categories: Category[];
 }
 
-export default function NavBar(props: NavBarProps) {
-    const { categories } = props;
-
+export default function NavBar({ categories }: NavBarProps) {
     const location = useLocation();
     const atAllReviews = location.pathname === "/";
 
