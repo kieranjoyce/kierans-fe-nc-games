@@ -1,3 +1,4 @@
+//@ts-ignore
 import ReviewCard from "./ReviewCard";
 import styles from "../modules/ReviewsList.module.css";
 import { getReviews } from "../utils/api";
