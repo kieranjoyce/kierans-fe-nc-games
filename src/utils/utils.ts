@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-import { getUser, getUsers, Comment } from "./api";
+import { getUser, getUsers } from "./api";
+import type { Comment } from "../types";
 
 export function dashesToSpaces(str: string) {
     return str.split("-").join(" ");

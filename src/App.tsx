@@ -11,7 +11,8 @@ import ReviewsList from "./components/ReviewsList";
 import SingleReview from "./components/SingleReview";
 // @ts-ignore
 import { UserContext } from "./contexts/UserContext";
-import { getCategories, Category, User } from "./utils/api";
+import { getCategories } from "./utils/api";
+import type { User, Category } from "./types";
 
 function App() {
     const [categories, setCategories] = useState<Category[]>([]);
