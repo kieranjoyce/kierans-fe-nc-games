@@ -27,7 +27,7 @@ export function getReviews(
         });
 }
 
-export function getReview(review_id: number) {
+export function getReview(review_id: string) {
     return ncGamesApi
         .get<{ review: Review }>(`/reviews/${review_id}`)
         .then(({ data: { review } }) => {
@@ -40,8 +40,7 @@ export function getUser(targetUsername: string) {
         .get<{ users: User[] }>("/users")
         .then(({ data: { users } }) => {
             return users.find(({ username }) => username === targetUsername);
-        })
-        .catch((err) => console.log(err));
+        });
 }
 
 export function getUsers() {
