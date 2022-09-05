@@ -5,9 +5,15 @@ import { formatDate } from "../utils/utils";
 import styles from "../modules/SingleReview.module.css";
 import VoteBlock from "./VoteBlock";
 import CommentsList from "./CommentsList";
+import type { Review, User } from "../types";
+
+interface ReviewData {
+    review?: Review;
+    user?: User;
+}
 
 export default function SingleReview() {
-    const [reviewData, setReviewData] = useState({ review: {}, user: {} });
+    const [reviewData, setReviewData] = useState<ReviewData>({});
 
     const {
         title,
@@ -19,8 +25,8 @@ export default function SingleReview() {
         created_at,
         votes,
         comment_count,
-    } = reviewData.review;
-    const { name, avatar_url } = reviewData.user;
+    } = { ...reviewData.review };
+    const { name, avatar_url } = { ...reviewData.user };
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -31,9 +37,10 @@ export default function SingleReview() {
     const { review_id } = useParams();
 
     useEffect(() => {
-        const reviewPromise = getReview(review_id);
+        const reviewPromise =
+            typeof review_id === "string" ? getReview(review_id) : undefined;
 
-        const userPromise = reviewPromise.then((review) => {
+        const userPromise = reviewPromise?.then((review) => {
             return getUser(review.owner);
         });
 
@@ -60,7 +67,6 @@ export default function SingleReview() {
             <section className={styles.review}>
                 <div className={styles.reviewHeader}>
                     <VoteBlock
-                        className={styles.votes}
                         votes={votes}
                         review_id={review_id}
                         setIsErr={setIsErr}
@@ -79,14 +85,16 @@ export default function SingleReview() {
                         <p className={styles.username}>{owner}</p>
                         <p className={styles.ownerName}>{name}</p>
                     </div>
-                    <p className={styles.date}>{formatDate(created_at)}</p>
+                    <p className={styles.date}>
+                        {formatDate(created_at as string)}
+                    </p>
                 </div>
                 <img
                     src={review_img_url}
                     alt={title}
                     className={styles.image}
                 />
-                <div className={styles.reviewContent}>
+                <div>
                     <div className={styles.gameDetails}>
                         <p>designed by {designer}</p>
                         <p>{category}</p>
