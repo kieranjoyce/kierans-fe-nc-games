@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "../modules/ReviewCard.module.css";
 import { dashesToSpaces, formatDate } from "../utils/utils";
-import { Review } from "../types";
+import type { Review } from "../types";
 
 interface ReviewCardProps {
     review: Review;

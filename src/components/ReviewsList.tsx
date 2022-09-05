@@ -1,4 +1,3 @@
-//@ts-ignore
 import ReviewCard from "./ReviewCard";
 import styles from "../modules/ReviewsList.module.css";
 import { getReviews } from "../utils/api";
@@ -10,7 +9,7 @@ import { ReactComponent as DownSymbol } from "../assets/arrow_downward_FILL0_wgh
 import type { Category, Review } from "../types";
 
 interface ReviewsListProps {
-    categories: Category[];
+    categories?: Category[];
 }
 
 interface NewSearchParams {
