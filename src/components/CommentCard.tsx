@@ -3,15 +3,22 @@ import styles from "../modules/CommentCard.module.css";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { deleteComment } from "../utils/api";
+import type { Comment, User } from "../types";
+
+interface CommentCardProps {
+    comment: Comment;
+    author: User;
+    setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+}
 
 export default function CommentCard({
     comment: { comment_id, author: commentAuthor, body, votes, created_at },
     author,
     setComments,
-}) {
+}: CommentCardProps) {
     const [deleteDisabled, setDeleteDisabled] = useState(false);
 
-    const { username } = useContext(UserContext);
+    const { username }: User = useContext(UserContext);
 
     const onClick = () => {
         setDeleteDisabled(true);
@@ -32,7 +39,7 @@ export default function CommentCard({
                     <div className={styles.avatarContainer}>
                         <img
                             src={author.avatar_url}
-                            alt={author}
+                            alt={author.username}
                             className={styles.avatar}
                         />
                     </div>
