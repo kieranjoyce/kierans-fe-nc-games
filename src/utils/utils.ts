@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { getUser, getUsers } from "./api";
-import type { Comment } from "../types";
+import type { Comment, User } from "../types";
 
 export function dashesToSpaces(str: string) {
     return str.split("-").join(" ");
@@ -14,7 +14,7 @@ export function getCommentAuthors(comments: Comment[]) {
     const commentCount = comments.length;
     switch (commentCount) {
         case 0:
-            return [];
+            return Promise.resolve([] as User[]);
         case 1:
             return getUser(comments[0].author);
         default:
