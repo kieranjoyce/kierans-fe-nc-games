@@ -19,6 +19,7 @@ export function getCommentAuthors(comments: Comment[]) {
             getUser(comments[0].author).then((user) => {
                 return [user];
             });
+            break;
         default:
             const commentAuthors = comments.map((comment) => comment.author);
             return getUsers().then((users) => {

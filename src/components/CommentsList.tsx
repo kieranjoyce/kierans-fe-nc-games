@@ -26,7 +26,9 @@ export default function CommentsList({
                 return getCommentAuthors(comments);
             })
             .then((authors) => {
-                setAuthors(authors);
+                if (authors) {
+                    setAuthors(authors);
+                }
             });
     }, [review_id]);
 
@@ -48,6 +50,9 @@ export default function CommentsList({
                             />
                         );
                     }
+                    return (
+                        <p>an error has occurred, please refresh the page</p>
+                    );
                 })}
             </ul>
             <PostComment review_id={review_id} setComments={setComments} />
