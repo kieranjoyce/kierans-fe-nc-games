@@ -15,19 +15,6 @@ interface ReviewData {
 export default function SingleReview() {
     const [reviewData, setReviewData] = useState<ReviewData>({});
 
-    const {
-        title,
-        designer,
-        owner,
-        review_img_url,
-        review_body,
-        category,
-        created_at,
-        votes,
-        comment_count,
-    } = { ...reviewData.review };
-    const { name, avatar_url } = { ...reviewData.user };
-
     const [isLoading, setIsLoading] = useState(true);
 
     const [isErr, setIsErr] = useState(false);
@@ -52,15 +39,30 @@ export default function SingleReview() {
             .catch(() => {
                 setIsWrongPath(true);
             });
-    }, [review_id, owner]);
+    }, [review_id]);
 
     if (isWrongPath) return <h2>review not found</h2>;
 
-    if (isLoading) return <p>loading...</p>;
+    if (isLoading || !reviewData.review || !reviewData.user)
+        return <p>loading...</p>;
 
-    if (isErr) return <p>an error has occurred, please refresh the page</p>;
+    if (isErr || typeof review_id !== "string")
+        return <p>an error has occurred, please refresh the page</p>;
 
     if (isWrongPath) return <p></p>;
+
+    const {
+        title,
+        designer,
+        owner,
+        review_img_url,
+        review_body,
+        category,
+        created_at,
+        votes,
+        comment_count,
+    } = reviewData.review;
+    const { name, avatar_url } = reviewData.user;
 
     return (
         <main>
