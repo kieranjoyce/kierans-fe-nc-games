@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { User } from "../utils/api";
+import type { User } from "../types";
 
 export const UserContext = createContext<User>({
     username: "happyamy2016",
