@@ -39,7 +39,7 @@ export function getUser(targetUsername: string) {
     return ncGamesApi
         .get<{ users: User[] }>("/users")
         .then(({ data: { users } }) => {
-            return users.filter(({ username }) => username === targetUsername);
+            return users.find(({ username }) => username === targetUsername);
         });
 }
 
