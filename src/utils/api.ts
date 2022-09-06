@@ -51,7 +51,7 @@ export function getUsers() {
         });
 }
 
-export function patchVotes(review_id: number, inc_votes: number) {
+export function patchVotes(review_id: string, inc_votes: number) {
     return ncGamesApi.patch(`/reviews/${review_id}`, { inc_votes });
 }
 
