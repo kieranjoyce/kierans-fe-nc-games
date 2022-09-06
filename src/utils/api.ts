@@ -55,7 +55,7 @@ export function patchVotes(review_id: string, inc_votes: number) {
     return ncGamesApi.patch(`/reviews/${review_id}`, { inc_votes });
 }
 
-export function getComments(review_id: number) {
+export function getComments(review_id: string) {
     return ncGamesApi
         .get<{ comments: Comment[] }>(`/reviews/${review_id}/comments`)
         .then(({ data: { comments } }) => {
@@ -63,7 +63,7 @@ export function getComments(review_id: number) {
         });
 }
 
-export function postComment(review_id: number, username: string, body: string) {
+export function postComment(review_id: string, username: string, body: string) {
     return ncGamesApi
         .post<{ comment: Comment }>(`/reviews/${review_id}/comments`, {
             username,
