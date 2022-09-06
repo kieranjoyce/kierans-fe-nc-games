@@ -1,6 +1,6 @@
 import { formatDate } from "../utils/utils";
 import styles from "../modules/CommentCard.module.css";
-import { useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { deleteComment } from "../utils/api";
 import type { Comment, User } from "../types";
@@ -8,7 +8,7 @@ import type { Comment, User } from "../types";
 interface CommentCardProps {
     comment: Comment;
     author: User;
-    setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+    setComments: Dispatch<SetStateAction<Comment[]>>;
 }
 
 export default function CommentCard({
