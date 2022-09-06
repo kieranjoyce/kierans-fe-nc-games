@@ -4,11 +4,20 @@ import CommentCard from "./CommentCard";
 import styles from "../modules/CommentsList.module.css";
 import { getCommentAuthors } from "../utils/utils";
 import PostComment from "./PostComment";
+import type { Comment, User } from "../types";
 
-export default function CommentsList({ review_id, comment_count }) {
-    const [comments, setComments] = useState([]);
+interface CommentsListProps {
+    review_id: string;
+    comment_count: number;
+}
 
-    const [authors, setAuthors] = useState([]);
+export default function CommentsList({
+    review_id,
+    comment_count,
+}: CommentsListProps) {
+    const [comments, setComments] = useState<Comment[]>([]);
+
+    const [authors, setAuthors] = useState<User[]>([]);
 
     useEffect(() => {
         getComments(review_id)
@@ -26,16 +35,19 @@ export default function CommentsList({ review_id, comment_count }) {
             <h2>Comments {comment_count}</h2>
             <ul className={styles.list}>
                 {comments.map((comment) => {
-                    return (
-                        <CommentCard
-                            key={comment.comment_id}
-                            comment={comment}
-                            author={authors.find(
-                                ({ username }) => username === comment.author
-                            )}
-                            setComments={setComments}
-                        />
+                    const commentAuthor = authors.find(
+                        ({ username }) => username === comment.author
                     );
+                    if (commentAuthor) {
+                        return (
+                            <CommentCard
+                                key={comment.comment_id}
+                                comment={comment}
+                                author={commentAuthor}
+                                setComments={setComments}
+                            />
+                        );
+                    }
                 })}
             </ul>
             <PostComment review_id={review_id} setComments={setComments} />
