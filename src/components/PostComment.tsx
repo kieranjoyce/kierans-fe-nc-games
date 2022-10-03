@@ -1,21 +1,34 @@
-import { useContext, useState } from "react";
+import {
+    ChangeEventHandler,
+    Dispatch,
+    FormEventHandler,
+    SetStateAction,
+    useContext,
+    useState,
+} from "react";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../modules/CommentCard.module.css";
 import { postComment } from "../utils/api";
+import type { User, Comment } from "../types";
 
-function PostComment({ review_id, setComments }) {
+interface PostCommentProps {
+    review_id: string;
+    setComments: Dispatch<SetStateAction<Comment[]>>;
+}
+
+function PostComment({ review_id, setComments }: PostCommentProps) {
     const [commentBody, setCommentBody] = useState("");
     const [isErr, setIsErr] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const { username, avatar_url } = useContext(UserContext);
+    const { username, avatar_url }: User = useContext(UserContext);
 
-    const onChange = (event) => {
+    const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         if (isErr) setIsErr(false);
         setCommentBody(event.target.value);
     };
 
-    const onSubmit = (event) => {
+    const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
         if (!commentBody) {
             setIsErr(true);
@@ -53,7 +66,7 @@ function PostComment({ review_id, setComments }) {
             <label>
                 Add your comment:
                 <input
-                    style={isErr ? { borderColor: "red" } : null}
+                    style={isErr ? { borderColor: "red" } : {}}
                     type="text"
                     value={commentBody}
                     placeholder="Enter comment here"

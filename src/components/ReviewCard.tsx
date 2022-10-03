@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import styles from "../modules/ReviewCard.module.css";
 import { dashesToSpaces, formatDate } from "../utils/utils";
+import type { Review } from "../types";
 
-export default function ReviewCard({ review }) {
+interface ReviewCardProps {
+    review: Review;
+}
+
+export default function ReviewCard({ review }: ReviewCardProps) {
     const {
         review_id,
         title,
@@ -32,9 +37,7 @@ export default function ReviewCard({ review }) {
                     </div>
                 </div>
                 <div className={styles.gameDetails}>
-                    <p className={styles.category}>
-                        {dashesToSpaces(category)}
-                    </p>
+                    <p>{dashesToSpaces(category)}</p>
                     <p>
                         designed by<span>{designer}</span>
                     </p>

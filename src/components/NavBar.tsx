@@ -1,8 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "../modules/NavBar.module.css";
 import { dashesToSpaces } from "../utils/utils";
+import { Category } from "../types";
 
-export default function NavBar({ categories }) {
+interface NavBarProps {
+    categories: Category[];
+}
+
+export default function NavBar({ categories }: NavBarProps) {
     const location = useLocation();
     const atAllReviews = location.pathname === "/";
 
@@ -14,7 +19,7 @@ export default function NavBar({ categories }) {
                         key="home"
                         to={`/`}
                         className={({ isActive }) =>
-                            isActive ? styles.nav__activeLink : undefined
+                            isActive ? styles.nav__activeLink : ""
                         }
                     >
                         <li className={styles.nav__listItem}>
@@ -28,7 +33,7 @@ export default function NavBar({ categories }) {
                             to={`/categories/${slug}`}
                             key={slug}
                             className={({ isActive }) =>
-                                isActive ? styles.nav__activeLink : undefined
+                                isActive ? styles.nav__activeLink : ""
                             }
                         >
                             <li className={styles.nav__listItem}>

@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+// @ts-ignore
 import Header from "./components/Header";
+// @ts-ignore
 import NavBar from "./components/NavBar";
+// @ts-ignore
 import ReviewsList from "./components/ReviewsList";
+// @ts-ignore
 import SingleReview from "./components/SingleReview";
+// @ts-ignore
 import { UserContext } from "./contexts/UserContext";
 import { getCategories } from "./utils/api";
+import type { User, Category } from "./types";
 
 function App() {
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState<Category[]>([]);
 
-    const user = {
+    const user: User = {
         username: "happyamy2016",
         name: "Amy Happy",
         avatar_url:
@@ -19,7 +25,7 @@ function App() {
     };
 
     useEffect(() => {
-        getCategories().then((categories) => {
+        getCategories().then((categories: Category[]) => {
             setCategories(categories);
         });
     }, []);
