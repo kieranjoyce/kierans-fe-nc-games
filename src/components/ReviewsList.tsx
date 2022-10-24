@@ -4,9 +4,17 @@ import { getReviews } from "../utils/api";
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { dashesToSpaces } from "../utils/utils";
-import { ReactComponent as UpSymbol } from "../assets/arrow_upward_FILL0_wght400_GRAD0_opsz48.svg";
-import { ReactComponent as DownSymbol } from "../assets/arrow_downward_FILL0_wght400_GRAD0_opsz48.svg";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import type { Category, Review } from "../types";
+import {
+    Button,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+} from "@mui/material";
 
 interface ReviewsListProps {
     categories?: Category[];
@@ -45,7 +53,7 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
             });
     }, [categories, categoryObj, category, sort_by, order]);
 
-    const onChangeSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const onChangeSort = (event: SelectChangeEvent) => {
         const newSearchParams: NewSearchParams = {
             sort_by: event.target.value,
         };
@@ -70,21 +78,32 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
         <main className={styles.main}>
             <div className={styles.main__headerBox}>
                 <h2 className={styles.main__header}>Reviews</h2>
-                <label className={styles.main__dropdown}>
-                    Sort by
-                    <select onChange={onChangeSort} defaultValue="created_at">
-                        <option value="created_at">date</option>
-                        <option value="comment_count">comment count</option>
-                        <option value="votes">votes</option>
-                    </select>
-                </label>
-                <button
-                    type="button"
+                <FormControl size="small">
+                    <InputLabel id="sort-by">Sort by</InputLabel>
+                    <Select
+                        labelId="sort-by"
+                        label="Sort by"
+                        onChange={onChangeSort}
+                        defaultValue="created_at"
+                        autoWidth
+                    >
+                        <MenuItem value="created_at">date</MenuItem>
+                        <MenuItem value="comment_count">comment count</MenuItem>
+                        <MenuItem value="votes">votes</MenuItem>
+                    </Select>
+                </FormControl>
+
+                <Button
+                    variant="text"
                     title="change sort order"
                     onClick={onClickOrder}
                 >
-                    {order === "asc" ? <UpSymbol /> : <DownSymbol />}
-                </button>
+                    {order === "asc" ? (
+                        <ArrowUpwardIcon />
+                    ) : (
+                        <ArrowDownwardIcon />
+                    )}
+                </Button>
             </div>
             {category && categoryObj ? (
                 <div>
