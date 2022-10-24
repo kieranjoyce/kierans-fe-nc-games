@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getReview, getUser } from "../utils/api";
-import { formatDate } from "../utils/utils";
+import { getReview } from "../utils/api";
+import { formatDate, getUser } from "../utils/utils";
 import styles from "../modules/SingleReview.module.css";
 import VoteBlock from "./VoteBlock";
 import CommentsList from "./CommentsList";

@@ -35,14 +35,6 @@ export function getReview(review_id: string) {
         });
 }
 
-export function getUser(targetUsername: string) {
-    return ncGamesApi
-        .get<{ users: User[] }>("/users")
-        .then(({ data: { users } }) => {
-            return users.find(({ username }) => username === targetUsername);
-        });
-}
-
 export function getUsers() {
     return ncGamesApi
         .get<{ users: User[] }>("/users")

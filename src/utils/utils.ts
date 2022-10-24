@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { getUser, getUsers } from "./api";
+import { getUsers } from "./api";
 import type { Comment, User } from "../types";
 
 export function dashesToSpaces(str: string) {
@@ -28,4 +28,10 @@ export function getCommentAuthors(comments: Comment[]) {
                 );
             });
     }
+}
+
+export function getUser(targetUsername: string) {
+    return getUsers().then((users) => {
+        return users.find(({ username }) => username === targetUsername);
+    });
 }
