@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../modules/VoteBlock.module.css";
-import { ReactComponent as UpSymbol } from "../assets/arrow_upward_FILL0_wght400_GRAD0_opsz48.svg";
-import { ReactComponent as DownSymbol } from "../assets/arrow_downward_FILL0_wght400_GRAD0_opsz48.svg";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { patchVotes } from "../utils/api";
 
 interface VoteBlockProps {
@@ -70,7 +70,7 @@ export default function VoteBlock({
                     changeVote(1);
                 }}
             >
-                <UpSymbol
+                <ArrowUpwardIcon
                     className={
                         voteData.voteChange === 1
                             ? styles.upSymbolSelected
@@ -85,7 +85,7 @@ export default function VoteBlock({
                     changeVote(-1);
                 }}
             >
-                <DownSymbol
+                <ArrowDownwardIcon
                     className={
                         voteData.voteChange === -1
                             ? styles.downSymbolSelected
