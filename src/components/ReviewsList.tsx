@@ -8,12 +8,15 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import type { Category, Review } from "../types";
 import {
+    Box,
     Button,
     FormControl,
     InputLabel,
     MenuItem,
     Select,
     SelectChangeEvent,
+    Tooltip,
+    Typography,
 } from "@mui/material";
 
 interface ReviewsListProps {
@@ -77,8 +80,10 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
     return (
         <main className={styles.main}>
             <div className={styles.main__headerBox}>
-                <h2 className={styles.main__header}>Reviews</h2>
-                <FormControl size="small">
+                <Typography sx={{ flexGrow: 1 }} variant="h2">
+                    Reviews
+                </Typography>
+                <FormControl size="small" sx={{ minWidth: 120, my: "auto" }}>
                     <InputLabel id="sort-by">Sort by</InputLabel>
                     <Select
                         labelId="sort-by"
@@ -87,31 +92,41 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
                         defaultValue="created_at"
                         autoWidth
                     >
-                        <MenuItem value="created_at">date</MenuItem>
-                        <MenuItem value="comment_count">comment count</MenuItem>
-                        <MenuItem value="votes">votes</MenuItem>
+                        <MenuItem value="created_at">Date</MenuItem>
+                        <MenuItem value="comment_count">Comments</MenuItem>
+                        <MenuItem value="votes">Votes</MenuItem>
                     </Select>
                 </FormControl>
-
-                <Button
-                    variant="text"
-                    title="change sort order"
-                    onClick={onClickOrder}
-                >
-                    {order === "asc" ? (
-                        <ArrowUpwardIcon />
-                    ) : (
-                        <ArrowDownwardIcon />
-                    )}
-                </Button>
+                <Tooltip sx={{ my: "auto" }} title="Change sort order">
+                    <Button variant="text" onClick={onClickOrder}>
+                        {order === "asc" ? (
+                            <ArrowUpwardIcon />
+                        ) : (
+                            <ArrowDownwardIcon />
+                        )}
+                    </Button>
+                </Tooltip>
             </div>
             {category && categoryObj ? (
-                <div>
-                    <h3 className={styles.main__categoryDescription}>
-                        <span>{dashesToSpaces(category)}</span>:{" "}
+                <Box
+                    sx={{
+                        m: "1em",
+                        border: 1,
+                        borderColor: "primary.main",
+                        borderRadius: 2,
+                        p: "1em",
+                    }}
+                >
+                    <Typography
+                        variant="h3"
+                        sx={{ textTransform: "capitalize" }}
+                    >
+                        {dashesToSpaces(category)}
+                    </Typography>
+                    <Typography variant="h4">
                         {categoryObj.description}
-                    </h3>
-                </div>
+                    </Typography>
+                </Box>
             ) : null}
             <ul className={styles.main__list}>
                 {reviews.map((review) => {
