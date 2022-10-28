@@ -118,12 +118,16 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
                     }}
                 >
                     <Typography
-                        variant="h3"
+                        variant="h4"
+                        component="h3"
                         sx={{ textTransform: "capitalize" }}
                     >
                         {dashesToSpaces(category)}
                     </Typography>
-                    <Typography variant="h4">
+                    <Typography
+                        variant="body1"
+                        sx={{ color: "text.secondary" }}
+                    >
                         {categoryObj.description}
                     </Typography>
                 </Box>
