@@ -2,7 +2,7 @@ import axios from "axios";
 import type { Category, Review, User, Comment } from "../types";
 
 const ncGamesApi = axios.create({
-    baseURL: "https://kierans-be-nc-games.herokuapp.com/api/",
+    baseURL: "https://be-yellow-pieces.cyclic.app/api",
 });
 
 export function getCategories() {

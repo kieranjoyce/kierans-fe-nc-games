@@ -23,10 +23,6 @@ interface ReviewsListProps {
     categories?: Category[];
 }
 
-interface NewSearchParams {
-    [name: string]: string;
-}
-
 export default function ReviewsList({ categories }: ReviewsListProps) {
     const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -57,22 +53,19 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
     }, [categories, categoryObj, category, sort_by, order]);
 
     const onChangeSort = (event: SelectChangeEvent) => {
-        const newSearchParams: NewSearchParams = {
-            sort_by: event.target.value,
-        };
-        if (order) {
-            newSearchParams.order = order;
-        }
-        setSearchParams(newSearchParams);
+        const newSortBy = event.target.value;
+        setSearchParams((prev: URLSearchParams) => {
+            prev.set("sort_by", newSortBy);
+            return prev;
+        });
     };
 
     const onClickOrder = () => {
         const newOrder = order === "asc" ? "desc" : "asc";
-        const newSearchParams: NewSearchParams = { order: newOrder };
-        if (sort_by) {
-            newSearchParams.sort_by = sort_by;
-        }
-        setSearchParams(newSearchParams);
+        setSearchParams((prev: URLSearchParams) => {
+            prev.set("order", newOrder);
+            return prev;
+        });
     };
 
     if (isWrongPath) return <h2>category not found</h2>;

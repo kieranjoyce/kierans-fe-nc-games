@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../modules/VoteBlock.module.css";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -10,55 +10,34 @@ interface VoteBlockProps {
     setIsErr: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type VoteType = "" | "up" | "down" | "reset";
-
-interface VoteData {
-    voteChange: number;
-    currVote: VoteType;
-    prevVote: VoteType;
-}
-
 export default function VoteBlock({
     votes,
     review_id,
     setIsErr,
 }: VoteBlockProps) {
-    const [voteData, setVoteData] = useState<VoteData>({
-        voteChange: 0,
-        currVote: "",
-        prevVote: "",
-    });
+    const [voteChange, setVoteChange] = useState<number>(0);
 
-    useEffect(() => {
-        if (!voteData.currVote) {
-            return;
-        }
+    const changeVote = (voteNum: number) => {
+        const prevVote = voteChange;
+        const voteNumAdjusted = prevVote !== voteNum ? voteNum : 0;
+        setVoteChange(voteNumAdjusted);
+
         const isVoteSwapping =
-            (voteData.voteChange === 1 && voteData.prevVote === "down") ||
-            (voteData.voteChange === -1 && voteData.prevVote === "up");
+            (voteNumAdjusted === 1 && prevVote === -1) ||
+            (voteNumAdjusted === -1 && prevVote === 1);
 
         let votesToPatch;
 
         if (isVoteSwapping) {
-            votesToPatch = 2 * voteData.voteChange;
-        } else if (voteData.voteChange !== 0) {
-            votesToPatch = voteData.voteChange;
+            votesToPatch = 2 * voteNumAdjusted;
+        } else if (voteNumAdjusted !== 0) {
+            votesToPatch = voteNumAdjusted;
         } else {
-            votesToPatch = voteData.prevVote === "up" ? -1 : 1;
+            votesToPatch = prevVote === 1 ? -1 : 1;
         }
 
         patchVotes(review_id, votesToPatch).catch(() => {
             setIsErr(true);
-        });
-    }, [voteData, review_id, setIsErr]);
-
-    const changeVote = (voteNum: number) => {
-        const voteChange = voteData.voteChange !== voteNum ? voteNum : 0;
-        const currVote =
-            voteChange === 0 ? "reset" : voteNum === 1 ? "up" : "down";
-
-        setVoteData((currVoteData) => {
-            return { voteChange, currVote, prevVote: currVoteData.currVote };
         });
     };
 
@@ -72,13 +51,13 @@ export default function VoteBlock({
             >
                 <ArrowUpwardIcon
                     className={
-                        voteData.voteChange === 1
+                        voteChange === 1
                             ? styles.upSymbolSelected
                             : styles.symbolsUnselected
                     }
                 />
             </button>
-            <p>{votes + voteData.voteChange}</p>
+            <p>{votes + voteChange}</p>
             <button
                 type="button"
                 onClick={() => {
@@ -87,7 +66,7 @@ export default function VoteBlock({
             >
                 <ArrowDownwardIcon
                     className={
-                        voteData.voteChange === -1
+                        voteChange === -1
                             ? styles.downSymbolSelected
                             : styles.symbolsUnselected
                     }
