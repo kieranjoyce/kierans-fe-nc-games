@@ -12,16 +12,15 @@ export function formatDate(dateStr: string) {
 
 export function getCommentAuthors(comments: Comment[]) {
     const commentCount = comments.length;
-    switch (commentCount) {
-        case 0:
-            return Promise.resolve([] as User[]);
-        default:
-            const commentAuthors = comments.map((comment) => comment.author);
-            return getUsers().then((users) => {
-                return users.filter(({ username }) =>
-                    commentAuthors.includes(username)
-                );
-            });
+    if (commentCount === 0) {
+        return Promise.resolve([] as User[]);
+    } else {
+        const commentAuthors = comments.map((comment) => comment.author);
+        return getUsers().then((users) => {
+            return users.filter(({ username }) =>
+                commentAuthors.includes(username)
+            );
+        });
     }
 }
 
