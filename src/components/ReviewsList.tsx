@@ -11,6 +11,7 @@ import {
     Box,
     Button,
     FormControl,
+    Grid,
     InputLabel,
     MenuItem,
     Select,
@@ -35,7 +36,7 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
 
     const { category } = useParams();
 
-    const categoryObj = useMemo(() => {
+    const categoryDetails = useMemo(() => {
         return categories && categories.length
             ? categories.find(({ slug }) => slug === category)
             : null;
@@ -50,7 +51,7 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
                 setIsWrongpath(true);
                 console.error(err);
             });
-    }, [categories, categoryObj, category, sort_by, order]);
+    }, [categories, categoryDetails, category, sort_by, order]);
 
     const onChangeSort = (event: SelectChangeEvent) => {
         const newSortBy = event.target.value;
@@ -100,38 +101,50 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
                     </Button>
                 </Tooltip>
             </div>
-            {category && categoryObj ? (
-                <Box
-                    sx={{
-                        m: "1em",
-                        border: 1,
-                        borderColor: "primary.main",
-                        borderRadius: 2,
-                        p: "1em",
-                    }}
-                >
-                    <Typography
-                        variant="h4"
-                        component="h3"
-                        sx={{ textTransform: "capitalize" }}
-                    >
-                        {dashesToSpaces(category)}
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        sx={{ color: "text.secondary" }}
-                    >
-                        {categoryObj.description}
-                    </Typography>
-                </Box>
-            ) : null}
-            <ul className={styles.main__list}>
-                {reviews.map((review) => {
-                    return (
-                        <ReviewCard key={review.review_id} review={review} />
-                    );
-                })}
-            </ul>
+            <Box
+                sx={{
+                    m: "1em",
+                    border: 1,
+                    borderColor: "primary.main",
+                    borderRadius: 2,
+                    p: "1em",
+                }}
+            >
+                {category && categoryDetails ? (
+                    <Box sx={{ pb: "1em" }}>
+                        <Typography
+                            variant="h4"
+                            component="h3"
+                            sx={{ textTransform: "capitalize" }}
+                        >
+                            {dashesToSpaces(category)}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            sx={{ color: "text.secondary" }}
+                        >
+                            {categoryDetails.description}
+                        </Typography>
+                    </Box>
+                ) : null}
+
+                <Grid container spacing={1}>
+                    {reviews.map((review) => {
+                        return (
+                            <Grid
+                                item
+                                xs={12}
+                                md={6}
+                                lg={4}
+                                xl={3}
+                                key={review.review_id}
+                            >
+                                <ReviewCard review={review} />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
         </main>
     );
 }
