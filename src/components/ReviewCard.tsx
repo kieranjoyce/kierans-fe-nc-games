@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
-import styles from "../modules/ReviewCard.module.css";
 import { dashesToSpaces, formatDate } from "../utils/utils";
 import type { Review } from "../types";
 import {
     Box,
     Card,
     CardActionArea,
+    CardActions,
     CardContent,
     CardHeader,
     CardMedia,
     Typography,
 } from "@mui/material";
+import { CommentOutlined, ThumbUpOutlined } from "@mui/icons-material";
 
 interface ReviewCardProps {
     review: Review;
@@ -20,7 +21,6 @@ export default function ReviewCard({ review }: ReviewCardProps) {
     const {
         review_id,
         title,
-        designer,
         owner,
         review_img_url,
         review_body,
@@ -33,16 +33,51 @@ export default function ReviewCard({ review }: ReviewCardProps) {
     return (
         <Card>
             <CardActionArea component={Link} to={`/reviews/${review_id}`}>
-                <CardHeader title={title} subheader={`By ${owner}`} />
+                <CardHeader
+                    title={title}
+                    subheader={
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography variant="subtitle1">
+                                By {owner}
+                            </Typography>
+                            <Typography variant="subtitle1">|</Typography>
+                            <Typography variant="subtitle2">
+                                {formatDate(created_at)}
+                            </Typography>
+                        </Box>
+                    }
+                />
                 <CardMedia component="img" image={review_img_url} alt={title} />
                 <CardContent>
-                    <Typography variant="body2">
-                        {formatDate(created_at)}
-                    </Typography>
                     <Typography variant="body1">
                         {dashesToSpaces(category)}
                     </Typography>
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            overflow: "hidden",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 4,
+                            WebkitBoxOrient: "vertical",
+                        }}
+                    >
+                        {review_body}
+                    </Typography>
                 </CardContent>
+                <CardActions>
+                    <ThumbUpOutlined sx={{ ml: "0.5em" }} />
+                    <Typography variant="button" sx={{ mx: "0.5em" }}>
+                        {votes}
+                    </Typography>
+                    <CommentOutlined />
+                    <Typography variant="button">{comment_count}</Typography>
+                </CardActions>
             </CardActionArea>
         </Card>
         // <li className={styles.review}>
