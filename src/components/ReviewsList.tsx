@@ -128,7 +128,7 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
                     </Box>
                 ) : null}
 
-                <Grid container spacing={2}>
+                <Grid container alignItems="stretch" spacing={2} rowSpacing={4}>
                     {reviews.map((review) => {
                         return (
                             <Grid
