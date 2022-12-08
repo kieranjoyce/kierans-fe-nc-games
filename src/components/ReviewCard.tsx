@@ -31,8 +31,16 @@ export default function ReviewCard({ review }: ReviewCardProps) {
     } = review;
 
     return (
-        <Card>
-            <CardActionArea component={Link} to={`/reviews/${review_id}`}>
+        <Card sx={{ height: "100%" }}>
+            <CardActionArea
+                component={Link}
+                to={`/reviews/${review_id}`}
+                sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
                 <CardHeader
                     title={title}
                     subheader={
@@ -52,10 +60,20 @@ export default function ReviewCard({ review }: ReviewCardProps) {
                             </Typography>
                         </Box>
                     }
+                    sx={{ width: "100%", flexGrow: 1 }}
                 />
-                <CardMedia component="img" image={review_img_url} alt={title} />
+                <CardMedia
+                    component="img"
+                    image={review_img_url}
+                    alt={title}
+                    height={200}
+                    sx={{ overflow: "hidden" }}
+                />
                 <CardContent>
-                    <Typography variant="body1">
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ textTransform: "capitalize" }}
+                    >
                         {dashesToSpaces(category)}
                     </Typography>
                     <Typography
@@ -80,32 +98,5 @@ export default function ReviewCard({ review }: ReviewCardProps) {
                 </CardActions>
             </CardActionArea>
         </Card>
-        // <li className={styles.review}>
-        //     <Link to={`/reviews/${review_id}`}>
-        //         <h3 className={styles.title}>{title}</h3>
-        //         <div className={styles.detailsWrapper}>
-        //             <img
-        //                 src={review_img_url}
-        //                 alt={title}
-        //                 className={styles.image}
-        //             />
-        //             <div className={styles.reviewDetails}>
-        //                 <p className={styles.owner}>{owner}</p>
-        //                 <p className={styles.date}>{formatDate(created_at)}</p>
-        //             </div>
-        //         </div>
-        //         <div className={styles.gameDetails}>
-        //             <p>{dashesToSpaces(category)}</p>
-        //             <p>
-        //                 designed by<span>{designer}</span>
-        //             </p>
-        //         </div>
-        //         <p className={styles.body}>{review_body}</p>
-        //         <div className={styles.engagement}>
-        //             <p>votes: {votes}</p>
-        //             <p>comments: {comment_count}</p>
-        //         </div>
-        //     </Link>
-        // </li>
     );
 }
