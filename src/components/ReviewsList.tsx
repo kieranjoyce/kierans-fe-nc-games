@@ -10,6 +10,7 @@ import type { Category, Review } from "../types";
 import {
     Box,
     Button,
+    Container,
     FormControl,
     Grid,
     InputLabel,
@@ -72,79 +73,93 @@ export default function ReviewsList({ categories }: ReviewsListProps) {
     if (isWrongPath) return <h2>category not found</h2>;
 
     return (
-        <main className={styles.main}>
-            <div className={styles.main__headerBox}>
-                <Typography sx={{ flexGrow: 1 }} variant="h2">
-                    Reviews
-                </Typography>
-                <FormControl size="small" sx={{ minWidth: 120, my: "auto" }}>
-                    <InputLabel id="sort-by">Sort by</InputLabel>
-                    <Select
-                        labelId="sort-by"
-                        label="Sort by"
-                        onChange={onChangeSort}
-                        defaultValue="created_at"
-                        autoWidth
+        <main>
+            <Container sx={{ maxWidth: { sm: "95%", md: "75%" } }}>
+                <Box sx={{ display: { sm: "flex" } }}>
+                    <Typography
+                        sx={{ flexGrow: 1 }}
+                        variant="h3"
+                        component="h2"
                     >
-                        <MenuItem value="created_at">Date</MenuItem>
-                        <MenuItem value="comment_count">Comments</MenuItem>
-                        <MenuItem value="votes">Votes</MenuItem>
-                    </Select>
-                </FormControl>
-                <Tooltip sx={{ my: "auto" }} title="Change sort order">
-                    <Button variant="text" onClick={onClickOrder}>
-                        {order === "asc" ? (
-                            <ArrowUpwardIcon />
-                        ) : (
-                            <ArrowDownwardIcon />
-                        )}
-                    </Button>
-                </Tooltip>
-            </div>
-            <Box
-                sx={{
-                    m: "1em",
-                    border: 1,
-                    borderColor: "primary.main",
-                    borderRadius: 2,
-                    p: "1em",
-                }}
-            >
-                {category && categoryDetails ? (
-                    <Box sx={{ pb: "1em" }}>
-                        <Typography
-                            variant="h4"
-                            component="h3"
-                            sx={{ textTransform: "capitalize" }}
+                        Reviews
+                    </Typography>
+                    <FormControl
+                        size="small"
+                        sx={{ minWidth: 120, my: "auto" }}
+                    >
+                        <InputLabel id="sort-by">Sort by</InputLabel>
+                        <Select
+                            labelId="sort-by"
+                            label="Sort by"
+                            onChange={onChangeSort}
+                            defaultValue="created_at"
+                            autoWidth
                         >
-                            {dashesToSpaces(category)}
-                        </Typography>
-                        <Typography
-                            variant="body1"
-                            sx={{ color: "text.secondary" }}
-                        >
-                            {categoryDetails.description}
-                        </Typography>
-                    </Box>
-                ) : null}
-
-                <Grid container alignItems="stretch" spacing={2} rowSpacing={4}>
-                    {reviews.map((review) => {
-                        return (
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}
-                                lg={4}
-                                xl={3}
-                                key={review.review_id}
+                            <MenuItem value="created_at">Date</MenuItem>
+                            <MenuItem value="comment_count">Comments</MenuItem>
+                            <MenuItem value="votes">Votes</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Tooltip sx={{ my: "auto" }} title="Change sort order">
+                        <Button variant="text" onClick={onClickOrder}>
+                            {order === "asc" ? (
+                                <ArrowUpwardIcon />
+                            ) : (
+                                <ArrowDownwardIcon />
+                            )}
+                        </Button>
+                    </Tooltip>
+                </Box>
+                <Box
+                    sx={{
+                        border: 1,
+                        borderColor: "primary.main",
+                        borderRadius: 2,
+                        mt: "1em",
+                        p: "1em",
+                    }}
+                >
+                    {category && categoryDetails ? (
+                        <Box sx={{ pb: "1em" }}>
+                            <Typography
+                                variant="h4"
+                                component="h3"
+                                sx={{ textTransform: "capitalize" }}
                             >
-                                <ReviewCard review={review} />
-                            </Grid>
-                        );
-                    })}
-                </Grid>
-            </Box>
+                                {dashesToSpaces(category)}
+                            </Typography>
+                            <Typography
+                                variant="body1"
+                                sx={{ color: "text.secondary" }}
+                            >
+                                {categoryDetails.description}
+                            </Typography>
+                        </Box>
+                    ) : null}
+
+                    <Grid
+                        container
+                        alignItems="stretch"
+                        spacing={2}
+                        rowSpacing={4}
+                    >
+                        {reviews.map((review) => {
+                            return (
+                                <Grid
+                                    item
+                                    xs={12}
+                                    md={6}
+                                    lg={4}
+                                    xl={3}
+                                    key={review.review_id}
+                                >
+                                    <ReviewCard review={review} />
+                                </Grid>
+                            );
+                        })}
+                    </Grid>
+                </Box>
+            </Container>
         </main>
     );
 }
