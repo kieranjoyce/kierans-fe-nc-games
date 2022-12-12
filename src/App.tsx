@@ -34,7 +34,6 @@ function App() {
         <UserContext.Provider value={user}>
             <div className="App">
                 <Header />
-                <NavBar categories={categories} />
                 <Routes>
                     <Route path="/" element={<ReviewsList />} />
                     <Route
